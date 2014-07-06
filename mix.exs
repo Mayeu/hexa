@@ -1,8 +1,8 @@
-defmodule Hex.Mixfile do
+defmodule Hexa.Mixfile do
   use Mix.Project
 
   def project do
-    [ app: :hex,
+    [ app: :hexa,
       version: "0.4.0",
       elixir: ">= 0.12.0",
       deps: deps ]

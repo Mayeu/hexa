@@ -1,4 +1,4 @@
-defmodule Hex do
+defmodule Hexa do
   @moduledoc """
   A simple module to convert to and from hex encoded strings.
 
@@ -10,27 +10,27 @@ defmodule Hex do
 
   ## Examples
 
-      iex> Hex.encode("This is a test.")
+      iex> Hexa.encode("This is a test.")
       "54686973206973206120746573742e"
 
-      iex> Hex.encode('This is a test.')
+      iex> Hexa.encode('This is a test.')
       "54686973206973206120746573742e"
 
-      iex> Hex.encode(123456)
+      iex> Hexa.encode(123456)
       "1e240"
   """
   def encode(str) when is_binary(str) do
     binary_to_hex_list(str)
-    |> iolist_to_binary
+    |> :erlang.iolist_to_binary
   end
 
   def encode(str) when is_list(str) do
     list_to_hex(str)
-    |> iolist_to_binary
+    |> :erlang.iolist_to_binary
   end
 
   def encode(int) when is_integer(int) do
-    integer_to_binary(int, 16)
+    :erlang.integer_to_binary(int, 16)
     |> String.downcase
   end
 
@@ -39,13 +39,13 @@ defmodule Hex do
 
   ## Examples
 
-      iex> Hex.encode_to_list("This is a test.")
+      iex> Hexa.encode_to_list("This is a test.")
       '54686973206973206120746573742e'
 
-      iex> Hex.encode_to_list('This is a test.')
+      iex> Hexa.encode_to_list('This is a test.')
       '54686973206973206120746573742e'
 
-      iex> Hex.encode_to_list(123456)
+      iex> Hexa.encode_to_list(123456)
       '1e240'
   """
   def encode_to_list(str) when is_binary(str) do
@@ -57,7 +57,7 @@ defmodule Hex do
   end
 
   def encode_to_list(int) when is_integer(int) do
-    integer_to_list(int, 16)
+    :erlang.integer_to_list(int, 16)
     |> :string.to_lower
   end
 
@@ -67,21 +67,21 @@ defmodule Hex do
 
   ## Examples
 
-      iex> Hex.decode("54686973206973206120746573742e")
+      iex> Hexa.decode("54686973206973206120746573742e")
       "This is a test."
 
-      iex> Hex.decode('54686973206973206120746573742e')
+      iex> Hexa.decode('54686973206973206120746573742e')
       "This is a test."
   """
   def decode(hex_str) when is_binary(hex_str) do
     :binary.bin_to_list(hex_str)
     |> hex_str_to_list
-    |> iolist_to_binary
+    |> :erlang.iolist_to_binary
   end
 
   def decode(hex_str) when is_list(hex_str) do
     hex_str_to_list(hex_str)
-    |> iolist_to_binary
+    |> :erlang.iolist_to_binary
   end
 
   @doc """
@@ -90,10 +90,10 @@ defmodule Hex do
 
   ## Examples
 
-      iex> Hex.decode_to_list("54686973206973206120746573742e")
+      iex> Hexa.decode_to_list("54686973206973206120746573742e")
       'This is a test.'
 
-      iex> Hex.decode_to_list('54686973206973206120746573742e')
+      iex> Hexa.decode_to_list('54686973206973206120746573742e')
       'This is a test.'
   """
   def decode_to_list(hex_str) when is_binary(hex_str) do
@@ -111,18 +111,18 @@ defmodule Hex do
 
   ## Examples
 
-      iex> Hex.to_integer('54686973206973206120746573742e')
+      iex> Hexa.to_integer('54686973206973206120746573742e')
       438270661302729020147902120434299950
 
-      iex> Hex.to_integer("54686973206973206120746573742e")
+      iex> Hexa.to_integer("54686973206973206120746573742e")
       438270661302729020147902120434299950
   """
   def to_integer(hex_str) when is_list(hex_str) do
-    list_to_integer(hex_str, 16)
+    List.to_integer(hex_str, 16)
   end
 
   def to_integer(hex_str) when is_binary(hex_str) do
-    binary_to_integer(hex_str, 16)
+    String.to_integer(hex_str, 16)
   end
 
   defp binary_to_hex_list(str) do
